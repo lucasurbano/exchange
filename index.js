@@ -2,28 +2,28 @@ require("dotenv").config();
 
 const express = require("express");
 
+const Datastore = require("nedb");
+
+const db = new Datastore({ filename: "./data/data.db", autoload: true });
+
 const app = express();
 
-const exchangesDB = require("./data/date.json");
-
-const { exchanges: exchangesMock } = exchangesDB;
-
 app.get("/exchange", (req, res) => {
-  res.status(200).json(exchangesDB);
-  console.dir(req.originalUrl);
+  db.find({}, (err, docs) => {
+    res.send(docs);
+  });
 });
 
-app.use("/exchange/:amount/:from/:to/:rate", function (req, res) {
+app.use("/exchange/:amount/:from/:to/:rate", (req, res) => {
   const exchangeRequest = req.params; // Possui todos os parametros da requisicao.
   const conversion = exchangeRequest.amount * exchangeRequest.rate; // Valor convertido
 
-  console.dir(conversion);
-
-  const bind = exchangesMock.data.find(
-    (exchange) => exchange.moeda === exchangeRequest.to
-  );
-
-  res.send({ valorConvertido: conversion, simboloMoeda: bind.simboloMoeda });
+  db.findOne({ moeda: exchangeRequest.to }, (err, docs) => {
+    res.send({
+      valorConvertido: conversion,
+      simboloMoeda: docs.simboloMoeda,
+    });
+  });
 });
 
 // Passamos a porta onde o servidor ficará ouvindo

@@ -1,9 +1,0 @@
-{
-  "exchanges": {
-    "data": [
-      { "moeda": "USD", "simboloMoeda": "$" },
-      { "moeda": "BRL", "simboloMoeda": "R$" },
-      { "moeda": "EUR", "simboloMoeda": "€" }
-    ]
-  }
-}
