@@ -27,8 +27,10 @@ app.use("/exchange/:amount/:from/:to/:rate", (req, res) => {
 });
 
 // Passamos a porta onde o servidor ficará ouvindo
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Listening on port: ${process.env.PORT}`);
+const port = process.env.PORT || 3000
+
+app.listen(port, () => {
+  console.log(`Listening on port: ${port}`);
 });
 
 app.use((req, res, next) => {
