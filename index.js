@@ -1,20 +1,20 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const express = require("express");
+const express = require('express');
 
-const Datastore = require("nedb");
+const Datastore = require('nedb');
 
-const db = new Datastore({ filename: "./data/data.db", autoload: true });
+const db = new Datastore({ filename: './data/data.db', autoload: true });
 
 const app = express();
 
-app.get("/exchange", (req, res) => {
+app.get('/exchange', (req, res) => {
   db.find({}, (err, docs) => {
     res.send(docs);
   });
 });
 
-app.use("/exchange/:amount/:from/:to/:rate", (req, res) => {
+app.use('/exchange/:amount/:from/:to/:rate', (req, res) => {
   const exchangeRequest = req.params; // Possui todos os parametros da requisicao.
   const conversion = exchangeRequest.amount * exchangeRequest.rate; // Valor convertido
 
@@ -32,7 +32,7 @@ app.listen(process.env.PORT || 3000, () => {
 });
 
 app.use((req, res, next) => {
-  const erro = new Error("Não encontrado");
+  const erro = new Error('Não encontrado');
   erro.status = 404;
   next(erro);
 });
