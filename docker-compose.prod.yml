@@ -3,4 +3,6 @@ version: '3.7'
 services:
   exchange:
     container_name: exchange-app-prod
-    command: npm run start
+    command: npm run start:prod
+    environment: 
+      - NODE_ENV=production
