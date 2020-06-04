@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  exchange:
+    image: exchange-app
+    build: .
+    ports:
+      - '${PORT}:${PORT}'
+    volumes: 
+      - .:/usr/src/app
+    networks: 
+      - exchange-backend
+networks: 
+  exchange-backend:
+    driver: bridge

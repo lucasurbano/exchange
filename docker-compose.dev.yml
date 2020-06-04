@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  exchange:
+    image: exchange-app:dev
+    build: .docker/development
+    container_name: exchange-app-dev
+    command: npm run start:dev
+    environment: 
+      - NODE_ENV=development
